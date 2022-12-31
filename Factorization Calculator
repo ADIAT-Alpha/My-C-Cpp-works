@@ -1,0 +1,82 @@
+#include<stdio.h>
+#include<math.h>
+int squared(int a)
+{
+	int b00l;
+	float rt=sqrt((float)a);
+	int rt2=sqrt(a);
+	if(rt-(float)rt2==0)
+		b00l=1;
+	else b00l=0;
+	return b00l;
+}
+int GCD(int a, int b, int c)
+{
+	int gcd=1;
+	for(int i=1; i<=abs(a); i++)
+	{
+		if(a%i==0 && b%i==0 && c%i==0)
+			gcd=i;
+	}
+	return gcd;
+}
+void factorization(int x, int by)
+{
+	int gcd=GCD(x,by,by);
+	x/=gcd;
+	int y=by/gcd;
+	printf("(");
+	if(y!=1)
+		printf("%d", y);
+	float xx=(float)x/y;
+	if((xx)<0)
+	{
+		printf("x +%d)", -x);	
+	}
+	else printf("x -%d)", x);
+}
+int main()
+{
+	printf("Factorization (ax^2 + bx +c format)\n");
+	printf("===================================\n\n");
+	int a,b,c;
+	printf("Enter value of a: ");
+	scanf("%d", &a);
+	printf("Enter value of b: ");
+	scanf("%d", &b);
+	printf("Enter value of c: ");
+	scanf("%d", &c);
+	int cons=GCD(a,b,c);
+	if(a<0)
+		a*=-1, b*=-1,c*=-1,cons*=-1;
+	if(cons>1)
+	{
+		a/=cons,b/=cons,c/=cons;
+	}
+	int cert=(b*b)-(4*a*c);
+	if(cert<0 || squared(cert)==0)
+		printf("Math ERROR!\n");
+	int x1=-b+(sqrt(cert));
+	int x2=-b-(sqrt(cert));
+	int by=2*a;
+	if(cert==0)
+	{
+		if(cons>1 || cons<-1)
+			printf("%d",cons);
+		else if(cons==-1)
+			printf("-");
+		factorization(x1, by);
+		printf("^2\n");	
+	}
+	else if(cert>0 && squared(cert)==1)
+	{
+		if(cons>1)
+			printf("%d",cons);
+		else if(cons==-1)
+			printf("-");
+		factorization(x1, by);
+		factorization(x2, by);
+		printf("\n");
+	}
+}
+//math!!!!!
