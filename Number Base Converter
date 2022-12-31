@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+void from10(int a, int d)
+{
+	int x=a,y=d;
+	int s[1000];
+	int i=0;
+	while(x>0)
+	{
+		int b=x%y;
+		x/=y;
+		if(b<10)
+			s[i]=b+48;
+		else s[i]=b+55; 
+		i++;
+	}
+	for(int j=i-1; j>=0; j--)
+		printf("%c", s[j]);
+	printf("\n");
+}
+int to10(char s[], int d)
+{
+	int a[strlen(s)+10], x=0,e=0;
+	for(int i=0; i<strlen(s); i++)
+	{
+		a[i]=s[i];
+		if(a[i]<=57)
+			a[i]-=48;
+		else if(a[i]>=65)
+			a[i]-=55;
+	}
+	for(int i=strlen(s)-1; i>=0; i--)
+	{
+		x+=(a[i]*pow(d,e));
+		e++;
+	}
+	return x;
+}
+int main()
+{
+	printf("Number Base Conversion\n");
+	printf("======================\n\n");
+	printf("Conversions\n1. Deciml\n2. Binary\n3. Otal\n4. HexaDecimal\n\n");	
+	printf("Choose Base to Convert: ");
+	int opt,a;
+	char s[100];
+	scanf("%d", &opt);
+	printf("\n");
+	switch(opt)
+	{
+		default:
+			printf("Error\n");
+			break;
+		case 1:
+			printf("Enter Decimal Value: ");
+			scanf("%d", &a);
+			printf("\nDecimal Value: ");
+			from10(a,2);
+			printf("Octal Value: ");
+			from10(a,8);
+			printf("HexaDecimal Value: ");
+			from10(a, 16);
+			break;
+		case 2:
+			printf("Enter Binary Value: ");
+			scanf("%s", &s);
+			printf("\nDecimal Value: ");
+			printf("%d\n", to10(s,2));
+			printf("Octal Value: ");
+			from10(to10(s,2), 8);
+			printf("HexaDecimal Value: ");
+			from10(to10(s,2), 16);
+			break;
+		case 3:
+			printf("Enter Octal Value: ");
+			scanf("%s", &s);
+			printf("\nDecimal Value: ");
+			printf("%d\n", to10(s,8));
+			printf("Binary Value: ");
+			from10(to10(s,8), 2);
+			printf("HexaDecimal Value: ");
+			from10(to10(s,8), 16);
+			break;
+		case 4:
+			printf("Enter HexaDecimal Value: ");
+			scanf("%s", &s);
+			printf("\nDecimal Value: ");
+			printf("%d\n", to10(s,16));
+			printf("Binary Value: ");
+			from10(to10(s,16), 2);
+			printf("Octal Value: ");
+			from10(to10(s,16), 8);
+			break;
+	}
+}
